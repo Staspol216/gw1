@@ -79,26 +79,33 @@ func (s *Storage) AddToCart(userID, productID, count int64) {
 }
 
 func (s *Storage) saveCartsToFile() error {
-	_, err := os.OpenFile(s.path, os.O_RDWR|os.O_TRUNC, 0666)
+	f, err := os.OpenFile(s.path, os.O_RDWR|os.O_TRUNC, 0666)
 	
 	if err != nil {
 		return err
 	}
 	
-	b, err := json.Marshal(s.carts)
+	defer f.Close()
 	
-	if err != nil {
-		return err
+	encoder := json.NewEncoder(f)
+	encoder.SetIndent("", "\t")
+	
+	encoderError := encoder.Encode(s.carts)
+	if encoderError == nil {
+		return encoderError
 	}
 	
-	
-	fmt.Println(string(b))
+	fmt.Println("Struct successfully written to json")
 	
 	return nil
 }
 
 func (s *Storage) GetCartByUserID(userID int64) models.ICart {
-	return nil
+	cart, _ := lo.Find(s.carts, func(cart *models.Cart) bool {
+		return cart.UserID == userID
+	})
+	
+	return cart
 }
 func (s *Storage) DeleteAllCarts()  {
 	fmt.Println("dsfsd")

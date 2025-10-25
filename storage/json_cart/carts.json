@@ -1,0 +1,29 @@
+[
+	{
+		"user_id": 100,
+		"products": [
+			{
+				"id": 1,
+				"count": 1000
+			}
+		]
+	},
+	{
+		"user_id": 10,
+		"products": [
+			{
+				"id": 15,
+				"count": 12
+			}
+		]
+	},
+	{
+		"user_id": 99,
+		"products": [
+			{
+				"id": 15,
+				"count": 1
+			}
+		]
+	}
+]

@@ -34,7 +34,6 @@ func main() {
 	}
 		
 	jsonCarts, err := json_cart.New("storage/json_cart/carts.json")
-	
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,5 +42,5 @@ func main() {
 	var cartsStorage storage = jsonCarts
 	cartsStorage.AddToCart(*userID, *productID, *count)
 	
-	fmt.Println(cartsStorage.GetCartByUserID(*userID))
+	fmt.Println(cartsStorage.GetCartByUserID(*userID).GetCountByProductID(*productID))
 }
